@@ -1,0 +1,152 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+model User {
+  id        String   @id @default(cuid())
+  phone     String   @unique
+  password  String
+  nickname  String   @default("")
+  avatar    String   @default("")
+  role      String   @default("user") // user | admin
+  active    Boolean  @default(true)
+  balance   Float    @default(0)
+  frozen    Float    @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  products   Product[]
+  orders     Order[]
+  cartItems  CartItem[]
+  favorites  Favorite[]
+  payLogs    PayLog[]
+}
+
+model Category {
+  id       String     @id @default(cuid())
+  name     String
+  icon     String     @default("")
+  sort     Int        @default(0)
+  parentId String?
+  parent   Category?  @relation("CategoryTree", fields: [parentId], references: [id])
+  children Category[] @relation("CategoryTree")
+  products Product[]
+  createdAt DateTime  @default(now())
+}
+
+model Product {
+  id          String   @id @default(cuid())
+  title       String
+  description String   @default("")
+  price       Float
+  originalPrice Float  @default(0)
+  images      String   @default("") // JSON array stored as string
+  categoryId  String
+  category    Category @relation(fields: [categoryId], references: [id])
+  sellerId    String
+  seller      User     @relation(fields: [sellerId], references: [id])
+  preset      Boolean  @default(false)
+  status      String   @default("pending") // pending | approved | sold | rejected | offline
+  gameServer  String   @default("")
+  gameAccount String   @default("")
+  stock       Int      @default(1)
+  sales       Int      @default(0)
+  views       Int      @default(0)
+  isHot       Boolean  @default(false)
+  isDiscount  Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  orderItems OrderItem[]
+  cartItems  CartItem[]
+  favorites  Favorite[]
+}
+
+model Order {
+  id         String      @id @default(cuid())
+  orderNo    String      @unique
+  userId     String
+  user       User        @relation(fields: [userId], references: [id])
+  totalPrice Float
+  status     String      @default("pending") // pending | paid | shipped | completed | cancelled | refunded
+  payMethod  String      @default("")
+  remark     String      @default("")
+  source     String      @default("manual")
+  buyerInfo  String?
+  paymentMethod  String?
+  paymentAccount String?
+  paymentName    String?
+  createdAt  DateTime    @default(now())
+  updatedAt  DateTime    @updatedAt
+
+  items OrderItem[]
+}
+
+model OrderItem {
+  id        String  @id @default(cuid())
+  orderId   String
+  order     Order   @relation(fields: [orderId], references: [id])
+  productId String
+  product   Product @relation(fields: [productId], references: [id])
+  quantity  Int     @default(1)
+  price     Float
+  snapshot  String  @default("") // product snapshot JSON
+}
+
+model CartItem {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+  productId String
+  product   Product  @relation(fields: [productId], references: [id])
+  quantity  Int      @default(1)
+  createdAt DateTime @default(now())
+
+  @@unique([userId, productId])
+}
+
+model Favorite {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+  productId String
+  product   Product  @relation(fields: [productId], references: [id])
+  createdAt DateTime @default(now())
+
+  @@unique([userId, productId])
+}
+
+model PayLog {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+  type      String   // recharge | withdraw | purchase | sale | refund
+  amount    Float
+  status    String   @default("pending") // pending | success | failed
+  remark    String   @default("")
+  createdAt DateTime @default(now())
+}
+
+model News {
+  id        String   @id @default(cuid())
+  title     String
+  content   String   @default("")
+  cover     String   @default("")
+  views     Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Banner {
+  id        String   @id @default(cuid())
+  image     String
+  link      String   @default("")
+  sort      Int      @default(0)
+  active    Boolean  @default(true)
+  createdAt DateTime @default(now())
+}

@@ -1,0 +1,28 @@
+<svg width="180" height="180" viewBox="0 0 180 180" xmlns="http://www.w3.org/2000/svg">
+  <!-- 背景 -->
+  <rect width="180" height="180" rx="40" fill="#07C160"/>
+  <!-- 渐变叠加增加质感 -->
+  <rect width="180" height="180" rx="40" fill="url(#grad)" opacity="0.15"/>
+  <defs>
+    <linearGradient id="grad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="white"/>
+      <stop offset="100%" stop-color="black"/>
+    </linearGradient>
+  </defs>
+  <!-- 葫芦茎 -->
+  <line x1="90" y1="18" x2="90" y2="34" stroke="white" stroke-width="6" stroke-linecap="round"/>
+  <!-- 叶子 -->
+  <path d="M90 30 Q112 20 118 32 Q104 36 90 32Z" fill="white" opacity="0.85"/>
+  <!-- 上球 -->
+  <circle cx="90" cy="60" r="28" fill="white"/>
+  <!-- 上球高光 -->
+  <circle cx="100" cy="50" r="8" fill="white" opacity="0.3"/>
+  <!-- 腰部 -->
+  <path d="M70 84 Q62 94 62 100 Q62 108 70 114 L110 114 Q118 108 118 100 Q118 94 110 84Z" fill="white"/>
+  <!-- 下球 -->
+  <circle cx="90" cy="142" r="38" fill="white"/>
+  <!-- 下球高光 -->
+  <circle cx="104" cy="128" r="10" fill="white" opacity="0.25"/>
+  <!-- 腰带装饰 -->
+  <path d="M68 98 Q90 92 112 98" stroke="rgba(0,150,80,0.25)" stroke-width="2.5" fill="none"/>
+</svg>

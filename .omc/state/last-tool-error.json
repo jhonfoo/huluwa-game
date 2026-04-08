@@ -1,0 +1,7 @@
+{
+  "tool_name": "Bash",
+  "tool_input_preview": "{\"command\":\"sshpass -p 'v7KN3vtpiorM' ssh -p 61427 -o StrictHostKeyChecking=no root@38.207.177.99 'python3 -c \\\"import rapidocr_onnxruntime; print(\\\\\\\"rapidocr ok\\\\\\\")\\\" 2>&1; python3 -c \\\"import cv2;...",
+  "error": "Exit code 1\nTraceback (most recent call last):\n  File \"<string>\", line 1, in <module>\nModuleNotFoundError: No module named 'rapidocr_onnxruntime'\nTraceback (most recent call last):\n  File \"<string>\", line 1, in <module>\nModuleNotFoundError: No module named 'cv2'\nTraceback (most recent call last):\n  File \"<string>\", line 1, in <module>\nModuleNotFoundError: No module named 'PIL'\n[rerun: b23]",
+  "timestamp": "2026-04-08T01:35:06.352Z",
+  "retry_count": 1
+}

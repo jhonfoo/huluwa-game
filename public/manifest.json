@@ -1,0 +1,18 @@
+{
+  "name": "葫芦娃游戏交易平台",
+  "short_name": "葫芦娃游戏",
+  "description": "安全便捷的游戏币、装备交易平台",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#07C160",
+  "theme_color": "#07C160",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "/icon-180.png",
+      "sizes": "180x180",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

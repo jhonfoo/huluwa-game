@@ -1,0 +1,297 @@
+{
+  "version": "1.0.0",
+  "lastScanned": 1775074500701,
+  "projectRoot": "/Users/a1-6/Desktop/huluwa-game",
+  "techStack": {
+    "languages": [
+      {
+        "name": "JavaScript/TypeScript",
+        "version": null,
+        "confidence": "high",
+        "markers": [
+          "package.json"
+        ]
+      },
+      {
+        "name": "TypeScript",
+        "version": null,
+        "confidence": "high",
+        "markers": [
+          "tsconfig.json"
+        ]
+      }
+    ],
+    "frameworks": [
+      {
+        "name": "next",
+        "version": "16.2.1",
+        "category": "fullstack"
+      },
+      {
+        "name": "react",
+        "version": "19.2.4",
+        "category": "frontend"
+      },
+      {
+        "name": "react-dom",
+        "version": "19.2.4",
+        "category": "frontend"
+      }
+    ],
+    "packageManager": "npm",
+    "runtime": null
+  },
+  "build": {
+    "buildCommand": "npm run build",
+    "testCommand": null,
+    "lintCommand": "npm run lint",
+    "devCommand": "npm run dev",
+    "scripts": {
+      "dev": "next dev",
+      "build": "next build",
+      "start": "next start",
+      "lint": "eslint"
+    }
+  },
+  "conventions": {
+    "namingStyle": null,
+    "importStyle": null,
+    "testPattern": null,
+    "fileOrganization": "type-based"
+  },
+  "structure": {
+    "isMonorepo": false,
+    "workspaces": [],
+    "mainDirectories": [
+      "public",
+      "src"
+    ],
+    "gitBranches": null
+  },
+  "customNotes": [],
+  "directoryMap": {
+    "prisma": {
+      "path": "prisma",
+      "purpose": null,
+      "fileCount": 2,
+      "lastAccessed": 1775074500689,
+      "keyFiles": [
+        "schema.prisma",
+        "seed.ts"
+      ]
+    },
+    "public": {
+      "path": "public",
+      "purpose": "Public files",
+      "fileCount": 8,
+      "lastAccessed": 1775074500690,
+      "keyFiles": [
+        "file.svg",
+        "globe.svg",
+        "icon-180.svg",
+        "logo.svg",
+        "manifest.json"
+      ]
+    },
+    "src": {
+      "path": "src",
+      "purpose": "Source code",
+      "fileCount": 0,
+      "lastAccessed": 1775074500692,
+      "keyFiles": []
+    },
+    "prisma/migrations": {
+      "path": "prisma/migrations",
+      "purpose": "Database migrations",
+      "fileCount": 1,
+      "lastAccessed": 1775074500692,
+      "keyFiles": [
+        "migration_lock.toml"
+      ]
+    },
+    "src/app": {
+      "path": "src/app",
+      "purpose": "Application code",
+      "fileCount": 4,
+      "lastAccessed": 1775074500693,
+      "keyFiles": [
+        "favicon.ico",
+        "globals.css",
+        "layout.tsx"
+      ]
+    },
+    "src/components": {
+      "path": "src/components",
+      "purpose": "UI components",
+      "fileCount": 3,
+      "lastAccessed": 1775074500693,
+      "keyFiles": [
+        "BottomNav.tsx",
+        "ClientLayout.tsx",
+        "Header.tsx"
+      ]
+    },
+    "src/lib": {
+      "path": "src/lib",
+      "purpose": "Library code",
+      "fileCount": 2,
+      "lastAccessed": 1775074500693,
+      "keyFiles": [
+        "auth.ts",
+        "prisma.ts"
+      ]
+    }
+  },
+  "hotPaths": [
+    {
+      "path": "src/app/dashboard/orders/print/page.tsx",
+      "accessCount": 15,
+      "lastAccessed": 1775090509867,
+      "type": "file"
+    },
+    {
+      "path": "src/app/dashboard/orders/[id]/edit/page.tsx",
+      "accessCount": 11,
+      "lastAccessed": 1775460843672,
+      "type": "file"
+    },
+    {
+      "path": "src/app/dashboard/orders/new/page.tsx",
+      "accessCount": 11,
+      "lastAccessed": 1775460852449,
+      "type": "file"
+    },
+    {
+      "path": "src/app/orders/page.tsx",
+      "accessCount": 7,
+      "lastAccessed": 1775331249986,
+      "type": "file"
+    },
+    {
+      "path": "src/app/dashboard/orders/page.tsx",
+      "accessCount": 5,
+      "lastAccessed": 1775329913266,
+      "type": "file"
+    },
+    {
+      "path": "src/app/api/orders/route.ts",
+      "accessCount": 3,
+      "lastAccessed": 1775329800625,
+      "type": "file"
+    },
+    {
+      "path": "src/app/orders/[id]/page.tsx",
+      "accessCount": 3,
+      "lastAccessed": 1775331244447,
+      "type": "file"
+    },
+    {
+      "path": "src/app/globals.css",
+      "accessCount": 3,
+      "lastAccessed": 1775459920943,
+      "type": "file"
+    },
+    {
+      "path": "src",
+      "accessCount": 3,
+      "lastAccessed": 1775460907280,
+      "type": "directory"
+    },
+    {
+      "path": "src/components/ClientLayout.tsx",
+      "accessCount": 2,
+      "lastAccessed": 1775075253219,
+      "type": "file"
+    },
+    {
+      "path": "src/components/Header.tsx",
+      "accessCount": 2,
+      "lastAccessed": 1775075254122,
+      "type": "file"
+    },
+    {
+      "path": "src/components/BottomNav.tsx",
+      "accessCount": 2,
+      "lastAccessed": 1775075256276,
+      "type": "file"
+    },
+    {
+      "path": "src/app/dashboard/orders/print/layout.tsx",
+      "accessCount": 2,
+      "lastAccessed": 1775075680257,
+      "type": "file"
+    },
+    {
+      "path": "src/app/dashboard/layout.tsx",
+      "accessCount": 2,
+      "lastAccessed": 1775459908820,
+      "type": "file"
+    },
+    {
+      "path": "src/app/layout.tsx",
+      "accessCount": 1,
+      "lastAccessed": 1775075248258,
+      "type": "file"
+    },
+    {
+      "path": "src/app/api/auth/login/route.ts",
+      "accessCount": 1,
+      "lastAccessed": 1775075625803,
+      "type": "file"
+    },
+    {
+      "path": "src/lib/auth.ts",
+      "accessCount": 1,
+      "lastAccessed": 1775090440459,
+      "type": "file"
+    },
+    {
+      "path": "src/app/api/print-orders/route.ts",
+      "accessCount": 1,
+      "lastAccessed": 1775090496340,
+      "type": "file"
+    },
+    {
+      "path": "src/app/api/orders/import/route.ts",
+      "accessCount": 1,
+      "lastAccessed": 1775329861607,
+      "type": "file"
+    },
+    {
+      "path": "src/app/dashboard/orders/import/page.tsx",
+      "accessCount": 1,
+      "lastAccessed": 1775329905571,
+      "type": "file"
+    },
+    {
+      "path": "",
+      "accessCount": 1,
+      "lastAccessed": 1775459905544,
+      "type": "directory"
+    },
+    {
+      "path": "src/app/dashboard/orders/import",
+      "accessCount": 1,
+      "lastAccessed": 1775460844716,
+      "type": "directory"
+    },
+    {
+      "path": "nixpacks.toml",
+      "accessCount": 1,
+      "lastAccessed": 1775613206612,
+      "type": "file"
+    }
+  ],
+  "userDirectives": [],
+  "changeLog": [
+    {
+      "date": "2026-04-02",
+      "author": "AI",
+      "summary": "修复用户侧订单筛选状态丢失问题",
+      "files": [
+        "src/app/orders/page.tsx"
+      ],
+      "detail": "问题：用户在 /orders 页面筛选订单后，点击某条订单进入详情页（/orders/[id]），返回后筛选状态丢失，页面恢复为未筛选状态。根本原因：filterBy/keyword 存在 React useState，组件卸载后重新挂载时状态重置。修复方案：将筛选状态迁移到 URL query string（useSearchParams + usePathname + router.push）。inputFilterBy/inputKeyword 保留为本地 state 作为输入框临时值，点击搜索才写入 URL。同时将组件拆分为 OrdersContent + Suspense 包裹的 OrdersPage，满足 Next.js 生产构建对 useSearchParams 的 Suspense boundary 要求。已上传服务器（38.207.177.99:61427，/var/www/huluwa-game），重新构建并 pm2 restart 生效。"
+    }
+  ]
+}
