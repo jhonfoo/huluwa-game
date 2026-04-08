@@ -43,7 +43,7 @@ def desensitize_account(account: str) -> str:
     return account
 
 
-TIME_RE = re.compile(r'\d{4}-\d{2}-\d{2}\s+\d{2}:\d{2}:\d{2}')
+TIME_RE = re.compile(r'\d{4}-\d{2}-\d{2}\s*\d{2}:\d{2}:\d{2}')
 # 匹配金额：可选¥前缀，数字含小数点，要求行内有"付款金额"标签
 AMOUNT_RE = re.compile(r'[¥￥]?\s*([\d,]+\.\d+)')
 
@@ -68,6 +68,8 @@ def extract_records(ocr_results: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
             continue
 
         time_val = TIME_RE.search(full_text).group().strip()
+        # 补全日期和时间之间缺失的空格，如 "2026-04-0809:02:51" → "2026-04-08 09:02:51"
+        time_val = re.sub(r'(\d{4}-\d{2}-\d{2})(\d{2}:\d{2}:\d{2})', r'\1 \2', time_val)
 
         amount = None
         status = None
