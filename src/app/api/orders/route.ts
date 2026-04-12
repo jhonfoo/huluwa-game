@@ -87,10 +87,11 @@ export async function POST(req: NextRequest) {
       if (productId) {
         const product = await prisma.product.findUnique({ where: { id: productId } });
         if (product) {
+          const quantity = product.price > 0 ? Math.max(Math.floor(Number(totalPrice) / product.price), 1) : 1;
           (orderData as Record<string, unknown>).items = {
             create: [{
               productId: product.id,
-              quantity: 1,
+              quantity,
               price: Number(totalPrice),
               snapshot: JSON.stringify({ title: product.title, images: product.images, price: product.price }),
             }],

@@ -59,11 +59,12 @@ export async function POST(req: NextRequest) {
         };
 
         if (product) {
+          const quantity = product.price > 0 ? Math.max(Math.floor(Number(r.付款金额) / product.price), 1) : 1;
           orderData.items = {
             create: [
               {
                 productId: product.id,
-                quantity: 1,
+                quantity,
                 price: Number(r.付款金额),
                 snapshot: JSON.stringify({
                   title: product.title,

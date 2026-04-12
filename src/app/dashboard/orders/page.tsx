@@ -44,6 +44,7 @@ export default function OrdersPage() {
   const [orders, setOrders] = useState<Order[]>([]);
   const [loading, setLoading] = useState(true);
   const [selected, setSelected] = useState<Set<string>>(new Set());
+  const [deleting, setDeleting] = useState<string | null>(null);
 
   // 筛选条件从 URL 读取
   const filterBy = searchParams.get("filterBy") || "orderNo";
@@ -122,6 +123,22 @@ export default function OrdersPage() {
     if (selected.size === 0) return;
     const ids = Array.from(selected).join(",");
     router.push(`/dashboard/orders/print?ids=${ids}`);
+  }
+
+  async function handleDelete(id: string) {
+    if (!confirm("确定删除该订单？")) return;
+    setDeleting(id);
+    try {
+      const res = await fetch(`/api/orders/${id}`, {
+        method: "DELETE",
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      if (res.ok) {
+        setOrders((prev) => prev.filter((o) => o.id !== id));
+        setSelected((prev) => { const next = new Set(prev); next.delete(id); return next; });
+      }
+    } catch {}
+    setDeleting(null);
   }
 
   const hasFilter = !!keyword;
@@ -248,12 +265,21 @@ export default function OrdersPage() {
                         </div>
                         <p className="text-xs text-gray-300 mt-1">{new Date(order.createdAt).toLocaleString("zh-CN", { timeZone: "Asia/Shanghai" })}</p>
                       </div>
-                      <button
-                        onClick={() => router.push(`/dashboard/orders/${order.id}/edit`)}
-                        className="text-xs text-[#07C160] border border-[#07C160] px-3 py-1 rounded hover:bg-green-50 ml-2 shrink-0"
-                      >
-                        编辑
-                      </button>
+                      <div className="flex flex-col gap-1.5 ml-2 shrink-0">
+                        <button
+                          onClick={() => router.push(`/dashboard/orders/${order.id}/edit`)}
+                          className="text-xs text-[#07C160] border border-[#07C160] px-3 py-1 rounded hover:bg-green-50"
+                        >
+                          编辑
+                        </button>
+                        <button
+                          onClick={() => handleDelete(order.id)}
+                          disabled={deleting === order.id}
+                          className="text-xs text-red-500 border border-red-300 px-3 py-1 rounded hover:bg-red-50 disabled:opacity-50"
+                        >
+                          {deleting === order.id ? "删除中" : "删除"}
+                        </button>
+                      </div>
                     </div>
                   </div>
                 </div>

@@ -31,6 +31,7 @@ export default function EditOrderPage() {
   const [status, setStatus] = useState("pending");
   const [orderDateTime, setOrderDateTime] = useState("");
   const [orderSeconds, setOrderSeconds] = useState("00");
+  const [productId, setProductId] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -54,6 +55,9 @@ export default function EditOrderPage() {
           setPaymentAccount(o.paymentAccount || "");
           setPaymentName(o.paymentName || "");
           setStatus(o.status || "pending");
+          if (o.items?.[0]?.product) {
+            setProductId(o.items[0].productId || o.items[0].product?.id || null);
+          }
           if (o.createdAt) {
             const { dt, ss } = utcToBjLocal(o.createdAt);
             setOrderDateTime(dt);
@@ -77,7 +81,7 @@ export default function EditOrderPage() {
         headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
         body: JSON.stringify({
           totalPrice: parseInt(totalPrice, 10) || 0,
-
+          productId,
           paymentMethod,
           paymentAccount,
           paymentName,
