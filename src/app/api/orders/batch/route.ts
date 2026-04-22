@@ -8,6 +8,7 @@ interface OrderRecord {
   状态: string;
   收款账号: string;
   收款姓名: string;
+  付款人姓名?: string;
   productId: string;
 }
 
@@ -55,6 +56,7 @@ export async function POST(req: NextRequest) {
           paymentMethod: "银行卡",
           paymentAccount: r.收款账号 || null,
           paymentName: r.收款姓名 || null,
+          buyerInfo: r.付款人姓名 || null,
           createdAt,
         };
 

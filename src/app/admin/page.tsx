@@ -377,7 +377,7 @@ export default function AdminPage() {
                       <th className="text-left px-4 py-3">商品</th>
                       <th className="text-left px-4 py-3">金额</th>
                       <th className="text-left px-4 py-3">付款方式</th>
-                      <th className="text-left px-4 py-3">买家信息</th>
+                      <th className="text-left px-4 py-3">付款人</th>
                       <th className="text-left px-4 py-3">状态</th>
                       <th className="text-left px-4 py-3">时间</th>
                     </tr>

@@ -29,11 +29,11 @@ def group_by_rows(ocr_results: List[Dict[str, Any]], y_tolerance: int = 15) -> L
 
 def desensitize_name(name: str) -> str:
     name = name.strip()
-    if len(name) == 3:
-        return name[0] + "*" + name[2]
-    elif len(name) == 2:
+    if len(name) < 2:
+        return name
+    if len(name) == 2:
         return name[0] + "*"
-    return name
+    return name[0] + "*" * (len(name) - 2) + name[-1]
 
 
 def desensitize_account(account: str) -> str:
@@ -44,58 +44,75 @@ def desensitize_account(account: str) -> str:
 
 
 TIME_RE = re.compile(r'\d{4}-\d{2}-\d{2}\s*\d{2}:\d{2}:\d{2}')
-# 匹配金额：可选¥前缀，数字含小数点，要求行内有"付款金额"标签
-AMOUNT_RE = re.compile(r'[¥￥]?\s*([\d,]+\.\d+)')
+AMOUNT_RE = re.compile(r'([\d,]+\.\d+)')
+NAME_RE = re.compile(r'[一-龥]{2,}')
+NAME_LABEL_RE = re.compile(r'付款人\s*姓名|付款人|^姓名')
 
 
 def extract_records(ocr_results: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
-    """从订单列表截图的OCR结果中提取所有订单记录"""
+    """从订单详情截图的OCR结果中提取单条订单记录"""
     rows = group_by_rows(ocr_results)
+    if not rows:
+        return []
 
-    tagged = []
-    for row in rows:
-        full_text = " ".join(item["text"] for item in row)
-        if TIME_RE.search(full_text):
-            tagged.append(("time", full_text))
-        elif "付款金额" in full_text or "已完成" in full_text or "已取消" in full_text:
-            tagged.append(("amount_status", full_text))
-        else:
-            tagged.append(("other", full_text))
+    row_texts = [" ".join(item["text"] for item in row) for row in rows]
+    full_text = " ".join(row_texts)
 
-    records = []
-    for i, (rtype, full_text) in enumerate(tagged):
-        if rtype != "time":
-            continue
-
-        time_val = TIME_RE.search(full_text).group().strip()
-        # 补全日期和时间之间缺失的空格，如 "2026-04-0809:02:51" → "2026-04-08 09:02:51"
+    # ---- 时间 ----
+    time_val = ""
+    for text in row_texts:
+        if "创建时间" in text:
+            m = TIME_RE.search(text)
+            if m:
+                time_val = m.group().strip()
+                break
+    if not time_val:
+        m = TIME_RE.search(full_text)
+        if m:
+            time_val = m.group().strip()
+    if time_val:
         time_val = re.sub(r'(\d{4}-\d{2}-\d{2})(\d{2}:\d{2}:\d{2})', r'\1 \2', time_val)
 
-        amount = None
-        status = None
-        for j in range(i - 1, max(i - 5, -1), -1):
-            if tagged[j][0] == "amount_status":
-                prev_text = tagged[j][1]
-                m = AMOUNT_RE.search(prev_text)
-                if m:
-                    amount = m.group(1).replace(",", "")
-                if "已完成" in prev_text:
-                    status = "已完成"
-                elif "已取消" in prev_text:
-                    status = "已取消"
+    # ---- 金额：优先从"总额"行取 ----
+    amount = ""
+    for text in row_texts:
+        if "总额" in text:
+            m = AMOUNT_RE.search(text)
+            if m:
+                amount = m.group(1).replace(",", "")
                 break
 
-        warnings = []
-        if amount is None:
-            warnings.append("付款金额未识别")
-        if status is None:
-            warnings.append("状态未识别")
+    # ---- 状态 ----
+    status = ""
+    if "交易已完成" in full_text or "已完成" in full_text:
+        status = "已完成"
+    elif "交易已取消" in full_text or "已取消" in full_text:
+        status = "已取消"
 
-        records.append({
-            "时间": time_val,
-            "付款金额": amount or "",
-            "状态": status or "",
-            "_warnings": warnings,
-        })
+    # ---- 付款人姓名 + 脱敏：取标签行最后一个中文串，避免"姓名"被误识别为值 ----
+    payer = ""
+    for text in row_texts:
+        if NAME_LABEL_RE.search(text):
+            remainder = re.sub(r'付款人\s*姓名|付款人|姓名', '', text).strip()
+            names = NAME_RE.findall(remainder)
+            if names:
+                payer = desensitize_name(names[-1])
+                break
 
-    return records
+    warnings = []
+    if not time_val:
+        warnings.append("创建时间未识别")
+    if not amount:
+        warnings.append("总额未识别")
+    if not status:
+        warnings.append("状态未识别")
+    if not payer:
+        warnings.append("付款人姓名未识别")
+
+    return [{
+        "时间": time_val,
+        "付款金额": amount,
+        "状态": status,
+        "付款人姓名": payer,
+        "_warnings": warnings,
+    }]

@@ -9,6 +9,7 @@ interface ParsedRecord {
   状态: string;
   收款账号: string;
   收款姓名: string;
+  付款人姓名?: string;
   filename?: string;
   status?: string;
   warnings?: string[];
@@ -112,6 +113,11 @@ export default function ImportOrdersPage() {
 
   async function handleConfirm() {
     if (!records.length || !products.length) return;
+    if (mode === "image") {
+      if (!account.trim()) { setError("请填写收款账号"); return; }
+      if (!name.trim()) { setError("请填写收款姓名"); return; }
+    }
+    setError("");
     setSubmitting(true);
     setProgress({ done: 0, total: records.length });
 
@@ -121,6 +127,7 @@ export default function ImportOrdersPage() {
       状态: String(r.状态 || "已完成"),
       收款账号: r.收款账号 || account,
       收款姓名: r.收款姓名 || name,
+      付款人姓名: r.付款人姓名 || "",
       productId: products[Math.floor(Math.random() * products.length)].id,
     }));
 
@@ -140,16 +147,15 @@ export default function ImportOrdersPage() {
         return;
       }
       setProgress({ done: data.created, total: data.total });
+      setSubmitting(false);
       if (data.failed > 0) {
         setError(`${data.created} 条创建成功，${data.failed} 条失败`);
+        return;
       }
+      router.push("/dashboard/orders");
     } catch {
       setError("网络错误");
-    }
-
-    setSubmitting(false);
-    if (!error) {
-      router.push("/dashboard/orders");
+      setSubmitting(false);
     }
   }
 
@@ -259,6 +265,9 @@ export default function ImportOrdersPage() {
                     <th className="text-left py-2 pr-4 font-normal">时间</th>
                     <th className="text-right py-2 pr-4 font-normal">金额</th>
                     <th className="text-left py-2 pr-4 font-normal">状态</th>
+                    {mode === "image" && (
+                      <th className="text-left py-2 pr-4 font-normal">付款人</th>
+                    )}
                     {mode === "excel" && (
                       <>
                         <th className="text-left py-2 pr-4 font-normal">收款账号</th>
@@ -277,6 +286,9 @@ export default function ImportOrdersPage() {
                           {r.状态 || "已完成"}
                         </span>
                       </td>
+                      {mode === "image" && (
+                        <td className="py-2 pr-4 text-gray-600">{r.付款人姓名 || "—"}</td>
+                      )}
                       {mode === "excel" && (
                         <>
                           <td className="py-2 pr-4 text-gray-600">{r.收款账号}</td>

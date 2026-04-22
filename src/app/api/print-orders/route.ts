@@ -225,7 +225,7 @@ export async function GET(req: NextRequest) {
       </colgroup>
       <thead>
         <tr>
-          <th>序号</th><th>订单号</th><th>商品名称</th><th>买家信息</th>
+          <th>序号</th><th>订单号</th><th>商品名称</th><th>付款人</th>
           <th>付款方式</th><th>收款账号</th><th>收款姓名</th>
           <th>成交金额</th><th>状态</th><th>下单时间</th>
         </tr>

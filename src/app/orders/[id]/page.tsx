@@ -91,6 +91,7 @@ export default function OrderDetailPage() {
     ...(order.paymentMethod ? [{ label: "收款方式", value: order.paymentMethod }] : []),
     ...(order.paymentAccount ? [{ label: "收款账号", value: order.paymentAccount }] : []),
     ...(order.paymentName ? [{ label: "收款姓名", value: order.paymentName }] : []),
+    ...(order.buyerInfo ? [{ label: "付款人姓名", value: order.buyerInfo }] : []),
     ...(order.remark ? [{ label: "备注", value: order.remark }] : []),
   ];
 

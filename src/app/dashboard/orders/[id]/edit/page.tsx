@@ -28,6 +28,7 @@ export default function EditOrderPage() {
   const [paymentMethod, setPaymentMethod] = useState("");
   const [paymentAccount, setPaymentAccount] = useState("");
   const [paymentName, setPaymentName] = useState("");
+  const [buyerInfo, setBuyerInfo] = useState("");
   const [status, setStatus] = useState("pending");
   const [orderDateTime, setOrderDateTime] = useState("");
   const [orderSeconds, setOrderSeconds] = useState("00");
@@ -54,6 +55,7 @@ export default function EditOrderPage() {
           setPaymentMethod(o.paymentMethod || "");
           setPaymentAccount(o.paymentAccount || "");
           setPaymentName(o.paymentName || "");
+          setBuyerInfo(o.buyerInfo || "");
           setStatus(o.status || "pending");
           if (o.items?.[0]?.product) {
             setProductId(o.items[0].productId || o.items[0].product?.id || null);
@@ -85,6 +87,7 @@ export default function EditOrderPage() {
           paymentMethod,
           paymentAccount,
           paymentName,
+          buyerInfo: buyerInfo.trim() || null,
           status,
           createdAt,
         }),
@@ -159,6 +162,17 @@ export default function EditOrderPage() {
             type="text"
             value={paymentName}
             onChange={(e) => setPaymentName(e.target.value)}
+            className="w-full border rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#07C160]"
+          />
+        </div>
+
+        <div>
+          <label className="block text-sm text-gray-600 mb-1">付款人姓名<span className="text-gray-400 text-xs ml-1">（可选）</span></label>
+          <input
+            type="text"
+            value={buyerInfo}
+            onChange={(e) => setBuyerInfo(e.target.value)}
+            placeholder="如：赵*龙"
             className="w-full border rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#07C160]"
           />
         </div>

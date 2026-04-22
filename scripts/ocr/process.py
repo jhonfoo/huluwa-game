@@ -33,6 +33,7 @@ def process_image(image_path):
                 "时间": r["时间"],
                 "付款金额": r["付款金额"],
                 "状态": r["状态"],
+                "付款人姓名": r["付款人姓名"],
             })
         return results
 

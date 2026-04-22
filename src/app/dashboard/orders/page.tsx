@@ -17,6 +17,7 @@ interface Order {
   buyerInfo: string | null;
   paymentMethod: string | null;
   paymentAccount: string | null;
+  paymentName: string | null;
   createdAt: string;
   items: OrderItem[];
 }
@@ -263,6 +264,9 @@ export default function OrdersPage() {
                           {order.paymentAccount && <span className="text-gray-400">{order.paymentAccount}</span>}
                           <span className={`px-2 py-0.5 rounded-full text-xs ${sc.color}`}>{sc.label}</span>
                         </div>
+                        {order.buyerInfo && (
+                          <p className="text-xs text-gray-500 mt-1">付款人: {order.buyerInfo}</p>
+                        )}
                         <p className="text-xs text-gray-300 mt-1">{new Date(order.createdAt).toLocaleString("zh-CN", { timeZone: "Asia/Shanghai" })}</p>
                       </div>
                       <div className="flex flex-col gap-1.5 ml-2 shrink-0">

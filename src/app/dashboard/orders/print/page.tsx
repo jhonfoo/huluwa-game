@@ -156,7 +156,7 @@ function buildPrintHtml(orders: Order[], nickname: string, phone: string, export
         <th style="padding:8px 6px;text-align:left;font-weight:600;color:#fff;overflow:hidden;">序号</th>
         <th style="padding:8px 6px;text-align:left;font-weight:600;color:#fff;overflow:hidden;">订单号</th>
         <th style="padding:8px 6px;text-align:left;font-weight:600;color:#fff;overflow:hidden;">商品名称</th>
-        <th style="padding:8px 6px;text-align:left;font-weight:600;color:#fff;overflow:hidden;">买家信息</th>
+        <th style="padding:8px 6px;text-align:left;font-weight:600;color:#fff;overflow:hidden;">付款人</th>
         <th style="padding:8px 6px;text-align:left;font-weight:600;color:#fff;overflow:hidden;">付款方式</th>
         <th style="padding:8px 6px;text-align:left;font-weight:600;color:#fff;overflow:hidden;">收款账号</th>
         <th style="padding:8px 6px;text-align:left;font-weight:600;color:#fff;overflow:hidden;">收款姓名</th>
@@ -338,7 +338,7 @@ function PrintContent() {
                 </colgroup>
                 <thead>
                   <tr>
-                    <th>序号</th><th>订单号</th><th>商品名称</th><th>买家信息</th>
+                    <th>序号</th><th>订单号</th><th>商品名称</th><th>付款人</th>
                     <th>付款方式</th><th>收款账号</th><th>收款姓名</th>
                     <th>成交金额</th><th>状态</th><th>下单时间</th>
                   </tr>
