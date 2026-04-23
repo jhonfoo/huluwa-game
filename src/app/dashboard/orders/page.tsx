@@ -260,8 +260,6 @@ export default function OrdersPage() {
                         <p className="font-medium text-sm truncate">{productName}</p>
                         <div className="flex items-center gap-3 mt-2 text-xs text-gray-400">
                           <span className="text-[#07C160] font-bold text-base">¥{order.totalPrice}</span>
-                          {order.paymentMethod && <span>付款: {order.paymentMethod}</span>}
-                          {order.paymentAccount && <span className="text-gray-400">{order.paymentAccount}</span>}
                           <span className={`px-2 py-0.5 rounded-full text-xs ${sc.color}`}>{sc.label}</span>
                         </div>
                         {order.buyerInfo && (

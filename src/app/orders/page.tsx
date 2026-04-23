@@ -19,6 +19,7 @@ interface Order {
   createdAt: string;
   paymentMethod: string | null;
   paymentAccount: string | null;
+  buyerInfo: string | null;
   items: OrderItem[];
 }
 
@@ -197,13 +198,7 @@ function OrdersContent() {
               <div className="flex items-center justify-between mt-3 pt-2 border-t border-gray-100">
                 <div className="text-xs text-gray-400 space-y-0.5">
                   <p>{new Date(order.createdAt).toLocaleString("zh-CN", { timeZone: "Asia/Shanghai" })}</p>
-                  {(order.paymentMethod || order.paymentAccount) && (
-                    <p>
-                      {order.paymentMethod && <span>{order.paymentMethod}</span>}
-                      {order.paymentMethod && order.paymentAccount && <span> · </span>}
-                      {order.paymentAccount && <span>{order.paymentAccount}</span>}
-                    </p>
-                  )}
+                  {order.buyerInfo && <p>付款人: {order.buyerInfo}</p>}
                 </div>
                 <div className="flex items-center gap-3">
                   <span className="text-sm">
